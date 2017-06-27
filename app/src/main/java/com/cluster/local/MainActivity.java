@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(CheckGooglePlayServices()){
-            GooglePlacesApiRequest request = new GooglePlacesApiRequest(getApplicationContext(), new GooglePlacesApiRequest.GooglePlacesApiCallback() {
+           /* GooglePlacesApiRequest request = new GooglePlacesApiRequest(getApplicationContext(), new GooglePlacesApiRequest.GooglePlacesApiCallback() {
                 @Override
                 public void onSuccess(Place result) {
                     Log.d("debug", "Place encooded: " + result.toString());
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                    //GooglePlacesApiRequest.PLACE_TYPE_CLUB,
                    GooglePlacesApiRequest.PLACE_TYPE_BAR
                    // GooglePlacesApiRequest.PLACE_TYPE_RESTAURANT
-            );
+            );*/
         }
 
 

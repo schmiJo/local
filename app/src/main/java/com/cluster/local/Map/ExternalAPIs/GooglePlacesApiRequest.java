@@ -4,12 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.cluster.local.Map.Marker.Bar;
-import com.cluster.local.Map.Marker.Club;
 import com.cluster.local.Map.Marker.Place;
-import com.cluster.local.Map.Marker.Restaurant;
 import com.cluster.local.Network.HTTPDataAdapter;
 import com.cluster.local.R;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import org.json.JSONArray;
@@ -121,210 +119,16 @@ public class GooglePlacesApiRequest {
                 types[i] = typesJSON.get(i).toString();
             }
 
-            Place place = getMarkerType(types, 0);
-            place.setPosition(location);
-            place.setName(name);
-            place.setPlaceID(placeId);
+            Place place = new Place(location,name);
 
+            place.setPlaceID(placeId);
+            place.setTypes(types);
 
             return place;
         }
     }
 
-    public Place getMarkerType(String[] types, int i) {
-        switch (types[i]) {
 
-            case "accounting":
-                break;
-            case "airport":
-                break;
-            case "amusement_park":
-                break;
-            case "aquarium":
-                break;
-            case "art_gallery":
-                break;
-            case "atm":
-                break;
-            case "bakery":
-                break;
-            case "bank":
-                break;
-            case "bar":
-                return new Bar();
-            case "beauty_salon":
-                break;
-            case "bicycle_store":
-                break;
-            case "book_store":
-                break;
-            case "bowling_alley":
-                break;
-            case "bus_station":
-                break;
-            case "cafe":
-                break;
-            case "campground":
-                break;
-            case "car_dealer":
-                break;
-            case "car_rental":
-                break;
-            case "car_repair":
-                break;
-            case "car_wash":
-                break;
-            case "casino":
-                break;
-            case "cemetery":
-                break;
-            case "church":
-                break;
-            case "city_hall":
-                break;
-            case "clothing_store":
-                break;
-            case "convenience_store":
-                break;
-            case "courthouse":
-                break;
-            case "dentist":
-                break;
-            case "department_store":
-                break;
-            case "doctor":
-                break;
-            case "electrician":
-                break;
-            case "electronics_store":
-                break;
-            case "embassy":
-                break;
-            case "fire_station":
-                break;
-            case "florist":
-                break;
-            case "funeral_home":
-                break;
-            case "furniture_store":
-                break;
-            case "gas_station":
-                break;
-            case "gym":
-                break;
-            case "hair_care":
-                break;
-            case "hardware_store":
-                break;
-            case "hindu_temple":
-                break;
-            case "home_goods_store":
-                break;
-            case "hospital":
-                break;
-            case "insurance_agency":
-                break;
-            case "jewelry_store":
-                break;
-            case "laundry":
-                break;
-            case "lawyer":
-                break;
-            case "library":
-                break;
-            case "liquor_store":
-                break;
-            case "local_government_office":
-                break;
-            case "locksmith":
-                break;
-            case "lodging":
-                break;
-            case "meal_delivery":
-                break;
-            case "meal_takeaway":
-                break;
-            case "mosque":
-                break;
-            case "movie_rental":
-                break;
-            case "movie_theater":
-                break;
-            case "moving_company":
-                break;
-            case "museum":
-                break;
-            case "night_club":
-                return new Club();
-            case "painter":
-                break;
-            case "park":
-                break;
-            case "parking":
-                break;
-            case "pet_store":
-                break;
-            case "pharmacy":
-                break;
-            case "physiotherapist":
-                break;
-            case "plumber":
-                break;
-            case "police":
-                break;
-            case "post_office":
-                break;
-            case "real_estate_agency":
-                break;
-            case "restaurant":
-                return new Restaurant();
-            case "roofing_contractor":
-                break;
-            case "rv_park":
-                break;
-            case "school":
-                break;
-            case "shoe_store":
-                break;
-            case "shopping_mall":
-                break;
-            case "spa":
-                break;
-            case "stadium":
-                break;
-            case "storage":
-                break;
-            case "store":
-                break;
-            case "subway_station":
-                break;
-            case "synagogue":
-                break;
-            case "taxi_stand":
-                break;
-            case "train_station":
-                break;
-            case "transit_station":
-                break;
-            case "travel_agency":
-                break;
-            case "university":
-                break;
-            case "veterinary_care":
-                break;
-            case "zoo":
-                break;
-            default:
-                break;
-
-
-        }
-        if (i <= 2) {
-            return getMarkerType(types, i++);
-        } else {
-            return null;
-        }
-    }
 
 
     public interface GooglePlacesApiCallback {

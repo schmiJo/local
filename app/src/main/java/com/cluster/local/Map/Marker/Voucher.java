@@ -17,10 +17,7 @@ public class Voucher extends Place {
         super(position, title);
     }
 
-    @Override
-    public MarkerOptions asMarkerOptions() {
-        return new MarkerOptions();
-    }
+
 
     public static int getIconId() {
         return ICON_ID;

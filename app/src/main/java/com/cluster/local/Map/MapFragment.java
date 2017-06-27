@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cluster.local.Map.ExternalAPIs.GooglePlacesApiRequest;
+import com.cluster.local.Map.Marker.MarkerIconUtility;
 import com.cluster.local.Map.Marker.Place;
 import com.cluster.local.R;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -33,6 +35,7 @@ public class MapFragment extends Fragment {
 
     MapView mapView;
     MapboxMap mapboxMap;
+    MarkerIconUtility markerIconUtility;
     LinkedList<MarkerOptions> markerQueue;
     LinkedList<Marker> addedMarkers;
 
@@ -44,7 +47,10 @@ public class MapFragment extends Fragment {
 
         mapView = (MapView) rootView.findViewById(R.id.mapView);
 
+
         mapView.onCreate(savedInstanceState);
+        markerIconUtility = new MarkerIconUtility(IconFactory.getInstance(getContext()));
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
@@ -64,6 +70,7 @@ public class MapFragment extends Fragment {
                         getMapboxMap().addMarker(new MarkerOptions()
                                 .position(result.getPosition())
                                 .title(result.getName())
+                                .icon(markerIconUtility.getIcon(result.getTypes()))
                         );
                     }
 
@@ -73,7 +80,8 @@ public class MapFragment extends Fragment {
                     }
                 });
                 request.sendNearbyRequest(new LatLng(49.013679, 12.097980), 5000, GooglePlacesApiRequest.PLACE_TYPE_RESTAURANT);
-
+                request.sendNearbyRequest(new LatLng(49.013679, 12.097980), 5000, GooglePlacesApiRequest.PLACE_TYPE_BAR);
+                request.sendNearbyRequest(new LatLng(49.013679, 12.097980), 5000, GooglePlacesApiRequest.PLACE_TYPE_CLUB);
 
             }
         });

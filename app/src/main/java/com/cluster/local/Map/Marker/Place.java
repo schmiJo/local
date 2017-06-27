@@ -8,11 +8,12 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
  * Created by Jonas on 6/25/2017.
  */
 
-public abstract class Place {
+public  class Place {
 
     private LatLng position;
     private String name;
     private String placeID;
+    private String[] types;
 
     public Place() {
     }
@@ -22,7 +23,6 @@ public abstract class Place {
         this.name = name;
     }
 
-    public abstract MarkerOptions asMarkerOptions();
 
     public LatLng getPosition() {
         return position;
@@ -48,5 +48,11 @@ public abstract class Place {
         this.placeID = placeID;
     }
 
+    public String[] getTypes() {
+        return types;
+    }
 
+    public void setTypes(String[] types) {
+        this.types = types;
+    }
 }
