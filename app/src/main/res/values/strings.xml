@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Local</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="google_api_key">AIzaSyALi5dDLfLuMOLWLL1-Gdz1e0vhbq_-sVE</string>
+    <string name="google_web_api_key">AIzaSyB-Jjo69OyU5HMkaxtPiNaX6YhxiE8nfL8</string>
+    <string name="mapbox_api_key">pk.eyJ1Ijoic2NobWlkdDE0IiwiYSI6ImNpd251dzA2YjAwMDIyenM5NXpiNTk2dnUifQ.PhQach_ovfcPuEvQjnClvg</string>
 </resources>
