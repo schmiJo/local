@@ -7,7 +7,6 @@ import android.util.Log;
 import com.cluster.local.Map.Marker.Place;
 import com.cluster.local.Network.HTTPDataAdapter;
 import com.cluster.local.R;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import org.json.JSONArray;
@@ -21,6 +20,10 @@ import static com.cluster.local.Network.HTTPDataAdapter.REQUEST_DENIED;
 import static com.cluster.local.Network.HTTPDataAdapter.UNKNOWN_ERROR;
 import static com.cluster.local.Network.HTTPDataAdapter.ZERO_RESULTS;
 
+
+/**
+ * Class for sending a nearby search with the Google Places API
+ */
 
 public class GooglePlacesApiRequest {
 
@@ -38,26 +41,49 @@ public class GooglePlacesApiRequest {
 
     public GooglePlacesApiRequest(Context context, GooglePlacesApiCallback callback) {
         this.callback = callback;
+        //Make sure that the api key won't be added twice
         if (KEY.length() <= 5) {
             KEY += context.getString(R.string.google_web_api_key);
         }
     }
 
-    public void sendNearbyRequest(LatLng coordinates, int radius, String placeType) {
-        String type = "";
-        if (!placeType.equals("")) {
-            type = "&types=" + placeType;
-        }
-        new PlacesAPIRequest().execute("location=" + coordinates.getLatitude() + "," + coordinates.getLongitude() + type + "&radius=" + radius);
+    public void sendNearbyRequest(Region region){
+        new PlacesAPIRequest().execute(
+                "location=" + region.getMiddle().getLatitude() + "," + region.getMiddle().getLongitude() +
+                        "&type=bar" +
+                        "&radius=" + region.getRadius());
+
+        new PlacesAPIRequest().execute(
+                "location=" + region.getMiddle().getLatitude() + "," + region.getMiddle().getLongitude() +
+                        "&type=restaurant" +
+                        "&radius=" + region.getRadius());
+
+        new PlacesAPIRequest().execute(
+                "location=" + region.getMiddle().getLatitude() + "," + region.getMiddle().getLongitude() +
+                        "&type=night_club" +
+                        "&radius=" + region.getRadius());
     }
 
 
-    private class PlacesAPIRequest extends AsyncTask<String, Void, String> {
+@Deprecated
+    public void sendNearbyRequest(LatLng coordinates, int radius, String... placeTypes) {
 
-
-        private PlacesAPIRequest() {
-
+        if (placeTypes[0].equals("")) {
+            new PlacesAPIRequest().execute("location=" + coordinates.getLatitude() + "," + coordinates.getLongitude() + "&radius=" + radius);
+        } else {
+            for (String type : placeTypes) {
+                String typeKey = "&types=" + type;
+                new PlacesAPIRequest().execute("location=" + coordinates.getLatitude() + "," + coordinates.getLongitude() + typeKey + "&radius=" + radius);
+            }
         }
+    }
+
+
+    /**
+     * Helper class for communicating with the GooglePlaces Web API, for nearby searches
+     */
+
+    private class PlacesAPIRequest extends AsyncTask<String, Void, String> {
 
 
         @Override
@@ -119,16 +145,16 @@ public class GooglePlacesApiRequest {
                 types[i] = typesJSON.get(i).toString();
             }
 
-            Place place = new Place(location,name);
+            Place place = new Place(location, name);
 
             place.setPlaceID(placeId);
             place.setTypes(types);
 
+            Log.i(TAG, "New Place: " + place.toString());
+
             return place;
         }
     }
-
-
 
 
     public interface GooglePlacesApiCallback {
@@ -141,7 +167,7 @@ public class GooglePlacesApiRequest {
     private boolean checkStatusCode(String status) {
         switch (status) {
             case "OK":
-                Log.i(TAG, "Request successful, reading Locations");
+                Log.i(TAG, "Request successful, reading Places");
                 return true;
             case "ZERO_RESULTS":
                 Log.w(TAG, "No results were found!");

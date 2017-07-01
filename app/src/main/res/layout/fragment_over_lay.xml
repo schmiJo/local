@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#84463c78"
+              android:orientation="vertical"
+             tools:context="com.cluster.local.Map.OverLayFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/map_overlay_header"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:textColor="#fff"/>
+
+    <TextView
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/map_overlay_explaination"
+        android:gravity="center_horizontal"
+        android:textColor="#c1c1c1"
+        />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/allowButton"
+        android:background="?attr/selectableItemBackground"
+        android:backgroundTint="#7c515151"
+        android:textColor="#5b47ba"
+        android:text="@string/allow"
+        android:textSize="16sp"
+        android:layout_gravity="bottom|end"/>
+
+
+</FrameLayout>

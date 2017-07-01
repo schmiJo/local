@@ -1,14 +1,14 @@
 package com.cluster.local.Map.Marker;
 
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
+import java.util.Arrays;
 
-/**
- * Created by Jonas on 6/25/2017.
- */
 
-public  class Place {
+public class Place implements Parcelable{
 
     private LatLng position;
     private String name;
@@ -23,6 +23,25 @@ public  class Place {
         this.name = name;
     }
 
+
+    protected Place(Parcel in) {
+        position = in.readParcelable(LatLng.class.getClassLoader());
+        name = in.readString();
+        placeID = in.readString();
+        types = in.createStringArray();
+    }
+
+    public static final Creator<Place> CREATOR = new Creator<Place>() {
+        @Override
+        public Place createFromParcel(Parcel in) {
+            return new Place(in);
+        }
+
+        @Override
+        public Place[] newArray(int size) {
+            return new Place[size];
+        }
+    };
 
     public LatLng getPosition() {
         return position;
@@ -54,5 +73,28 @@ public  class Place {
 
     public void setTypes(String[] types) {
         this.types = types;
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "name='" + name + '\'' +
+                ", position=" + position.getLatitude() + ", " + position.getLongitude() + '\'' +
+                ", types=" + Arrays.toString(types) + '\'' +
+                ", placeID='" + placeID +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(position, flags);
+        dest.writeString(name);
+        dest.writeString(placeID);
+        dest.writeStringArray(types);
     }
 }
