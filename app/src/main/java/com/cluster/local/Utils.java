@@ -12,7 +12,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -116,6 +118,17 @@ public class Utils {
         }
 
 
+    }
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     static void createNoMediaFile(File file) {
@@ -261,6 +274,20 @@ public class Utils {
         else
             return 0;
 
+    }
+
+    public float[] rotateMatrix(float[] vector2F, float[] matrix){
+        vector2F[0] = matrix[0] * vector2F[0] + matrix[1] * vector2F[1];
+        vector2F[1] = matrix[2] * vector2F[0] + matrix[3] * vector2F[1];
+        return vector2F;
+    }
+    public float[] multiplyMM2x2(float[] matrix1, float[] matrix2){
+        float[] result = new float[4];
+        result[0] = matrix1[0] * matrix2[0] + matrix1[1] * matrix2[2];
+        result[1] = matrix1[0] * matrix2[1] + matrix1[1] * matrix2[3];
+        result[2] = matrix1[2] * matrix2[0] + matrix1[3] * matrix2[2];
+        result[3] = matrix1[2] * matrix2[1] + matrix1[3] * matrix2[3];
+        return result;
     }
 
 }

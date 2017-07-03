@@ -16,10 +16,20 @@
         mapbox:mapbox_cameraZoom="11"
         mapbox:mapbox_styleUrl="mapbox://styles/schmidt14/cj4glq4114cpe2rk4zaayjro1"/>
 
+    <com.cluster.local.Map.Compass
+        android:id="@+id/compass"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        />
+
     <FrameLayout
+        android:id="@+id/overLayPlaceHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/overLayPlaceHolder"
 
         />
 
